@@ -1,3 +1,3 @@
-Sorry for this judges. 
-One of our members mistakenly pushed to this repo while he was setting up git and version control on his local system.
-We are sorry for this.
+HackJMI-2 ML Security
+
+Making a robust face recognition security system that doesn't lets the user with fake images i.e. holding up someone else's photo in front of camera to gain access.
