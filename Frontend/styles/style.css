@@ -1,0 +1,212 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-family: 'Mukta', sans-serif;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  background-color: #000000;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 60px;
+  top: 0;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 20px;
+}
+
+@media (max-width: 780px) {
+  header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    height: 120px;
+  }
+}
+
+@media (max-width: 500px) {
+  header {
+    height: 100px;
+  }
+}
+
+header h1 {
+  font-weight: 500;
+}
+
+@media (max-width: 780px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 500px) {
+  header h1 {
+    font-size: 1.2rem;
+  }
+}
+
+header form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header form input {
+  font-size: 1.2rem;
+  padding: 3px 5px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+@media (max-width: 780px) {
+  header form input {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  header form input {
+    font-size: 1rem;
+  }
+}
+
+header form button {
+  font-size: 1.2rem;
+  padding: 3px 5px;
+  width: 50px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+@media (max-width: 780px) {
+  header form button {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  header form button {
+    font-size: 1rem;
+  }
+}
+
+main {
+  margin: 60px auto 40px auto;
+  height: calc(100vh - 100px);
+  width: 100vw;
+  padding: 20px 100px;
+  background-color: #212121;
+}
+
+@media (max-width: 780px) {
+  main {
+    margin: 120px auto 40px auto;
+    height: calc(100vh - 160px);
+    padding: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  main {
+    margin: 100px auto 40px auto;
+    height: calc(100vh - 140px);
+    padding: 10px;
+  }
+}
+
+main div.camera {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 0px 15px 0px black;
+          box-shadow: 0px 0px 15px 0px black;
+}
+
+main div.camera button#stop {
+  position: absolute;
+  top: 50%;
+  right: 25px;
+  height: 52px;
+  width: 52px;
+  padding: 7px;
+  border-radius: 50%;
+  background-color: #ff7575;
+  cursor: pointer;
+  z-index: 5;
+}
+
+@media (max-width: 780px) {
+  main div.camera button#stop {
+    top: 155px;
+    right: 35px;
+  }
+}
+
+@media (max-width: 500px) {
+  main div.camera button#stop {
+    top: 115px;
+    right: 15px;
+  }
+}
+
+main div.camera button#stop i#btn {
+  font-size: 2rem;
+}
+
+main div.camera video#videoElement {
+  height: 100%;
+  width: 100%;
+  background-color: #212121;
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  background-color: #000000;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 40px;
+  bottom: 0;
+}
+/*# sourceMappingURL=style.css.map */

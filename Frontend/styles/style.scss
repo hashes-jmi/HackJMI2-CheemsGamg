@@ -1,0 +1,119 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-family: 'Mukta', sans-serif;
+}
+
+@mixin navs(){
+    position: fixed;
+    width: 100%;
+    left: 0;
+    background-color: #000000;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header{
+    @include navs();
+    height: 60px;
+    top: 0;
+    justify-content: space-between;
+    padding: 0 20px;
+    @media(max-width:780px){
+        flex-direction: column;
+        justify-content: center;
+        height: 120px;
+    }
+    @media(max-width:500px){ height: 100px; }
+    h1{
+        font-weight: 500;
+        @media(max-width:780px){ font-size: 1.8rem; }
+        @media(max-width:500px){ font-size: 1.2rem; }
+    }
+    form{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        input{
+            font-size: 1.2rem;
+            padding: 3px 5px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            @media(max-width:780px){ font-size: 1.1rem; }
+            @media(max-width:500px){ font-size: 1rem; }
+
+        }
+        button{
+            font-size: 1.2rem;
+            padding: 3px 5px;
+            width: 50px;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+            @media(max-width:780px){ font-size: 1.1rem; }
+            @media(max-width:500px){ font-size: 1rem; }
+        }
+    }
+}
+
+
+main{
+    margin: 60px auto 40px auto;
+    height: calc(100vh - 100px);
+    width: 100vw;
+    padding: 20px 100px;
+    background-color: #212121;
+    @media(max-width:780px){
+        margin: 120px auto 40px auto;
+        height: calc(100vh - 160px);
+        padding: 20px;
+    }
+    @media(max-width:500px){
+        margin: 100px auto 40px auto;
+        height: calc(100vh - 140px);
+        padding: 10px;
+    }
+    div.camera{
+        height: 100%;
+        width: 100%;
+        background-color:white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px 0px black;
+        button#stop{
+            position: absolute;
+            top: 50%;
+            right: 25px;
+            height: 52px;
+            width: 52px;
+            padding: 7px;
+            border-radius: 50%;
+            background-color: rgb(255, 117, 117);
+            cursor: pointer;
+            z-index: 5;
+            @media(max-width:780px){
+                top: 155px;
+                right: 35px;
+            }
+            @media(max-width:500px){
+                top: 115px;
+                right: 15px;
+            }
+            i#btn{ font-size: 2rem; }
+        }
+        video#videoElement{
+            height: 100%;
+            width: 100%;
+            background-color: #212121;
+        }
+    }
+}
+footer{
+    @include navs();
+    height: 40px;
+    bottom: 0;
+}
