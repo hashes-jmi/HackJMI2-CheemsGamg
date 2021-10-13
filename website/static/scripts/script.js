@@ -28,7 +28,8 @@ function start(){
     showVideo.style.backgroundColor = 'white';
 }
 
-showVideo.addEventListener("click", () => {
+showVideo.addEventListener("click", (e) => {
+    e.preventDefault();
     if(video.srcObject != null){ stop(); }
     else{ start(); };
 });
@@ -37,14 +38,15 @@ showVideo.addEventListener("click", () => {
 // Camera things
 const capture = document.querySelector("#capture .btn");
 const canvas = document.querySelector("#canvas");
-const input = document.getElementById('imageInput')
+const input = document.getElementById('imageInput');
+const form = document.getElementById('postImage');
 
-capture.addEventListener('click', function() {
+capture.addEventListener('click', (e) => {
+    e.preventDefault();
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    let img_src;
-    if(video.srcObject != null){ 
-        img_src = canvas.toDataURL('image/jpeg'); 
+    if(video.srcObject != '' && video.srcObject != undefined && video.srcObject != null){ 
+        let img_src = canvas.toDataURL('image/jpeg'); 
         input.setAttribute('value', img_src);
-        console.log(img_src);
+        form.submit();
     }
 });
