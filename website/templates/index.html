@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+
+
+{% block header %}
+{%  endblock %}
+
+
+{% block main %}
+<main id="main">
+    <div class="camera">
+        <div class="controls">
+            <button id="stop"><i class="btn fas fa-video-slash"></i></button>
+            <button id="capture"><i class="btn fas fa-camera"></i></button>
+        </div>
+        <video autoplay="true" id="videoElement"></video>
+        <canvas style="display: none;" id="canvas" width="320" height="240"></canvas>
+    </div>
+</main>
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+{% endblock %}
