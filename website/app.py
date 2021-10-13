@@ -3,7 +3,7 @@ from flask import Flask, render_template, url_for, request, redirect
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from PIL import Image
+from PIL import Image as PILImage
 from base64 import b64decode
 import uuid
 
@@ -65,16 +65,16 @@ def checkImage():
     image = request.form['image']
     imageUrl = Image(base64=image)
     # process the base64 to image
-    try:
-        filename = f'image-{uuid.uuid4().hex}.png' 
-        image = Image.fromstring('RGB',(image.size), b64decode(image))
-        image.save(os.path.join(UPLOAD_FOLDER, filename))
-        db.session.add(imageUrl)
-        db.session.commit()
-        # do the backend processing at this place
-        return render_template('index.html')
-    except:
-        return '<h2>There was an error in parsing the image. <br>Please try again</h2>'
+    # try:
+    file = f'image-{uuid.uuid4().hex}.png' 
+    image = PILImage.fromstring('RGB',(image.size), b64decode(image))
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file)))
+    db.session.add(imageUrl)
+    db.session.commit()
+    # do the backend processing at this place
+    return render_template('index.html')
+    # except:
+        # return '<h2>There was an error in parsing the image. <br>Please try again</h2>'
 
 if __name__ == '__main__':
     app.run(debug=True)
