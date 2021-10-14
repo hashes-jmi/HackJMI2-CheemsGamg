@@ -141,50 +141,50 @@ main#main{
         background-color:white;
         border-radius: 10px;
         box-shadow: 0px 0px 15px 0px black;
-        div.controls{
-            position: absolute;
-            top: 45%;
-            right: 25px;
-            background-color: transparent;
-            display: flex;
-            flex-direction: column;
-            @media(max-width:780px){
-                top: 35px;
-                right: 35px;
-            }
-            @media(max-width:500px){
-                top: 15px;
-                right: 15px;
-            }
-        }
-        button#stop, button#capture{
-            height: 52px;
-            width: 52px;
-            padding: 7px;
-            border-radius: 50%;
-            background-color: rgb(255, 117, 117);
-            cursor: pointer;
-            z-index: 5;
-            margin-bottom: 10px;
-            @media(max-width:780px){
-                height: 45px;
-                width: 45px;
-            }
-            @media(max-width:500px){
-                height: 40px;
-                width: 40px;
-            }
-            i.btn{ 
-                font-size: 2rem; 
-                @media(max-width:780px){ font-size: 1.7rem; }
-                @media(max-width:500px){ font-size: 1.55rem; }
-            }
-        }
         video#videoElement{
             height: 100%;
             width: 100%;
             background-color: #212121;
             transform: scaleX(-1);
+        }
+    }
+    div.controls{
+        position: absolute;
+        top: 45%;
+        right: 25px;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        @media(max-width:780px){
+            top: 35px;
+            right: 35px;
+        }
+        @media(max-width:500px){
+            top: 15px;
+            right: 15px;
+        }
+    }
+    button#stop, button#capture{
+        height: 52px;
+        width: 52px;
+        padding: 7px;
+        border-radius: 50%;
+        background-color: rgb(255, 117, 117);
+        cursor: pointer;
+        z-index: 5;
+        margin-bottom: 10px;
+        @media(max-width:780px){
+            height: 45px;
+            width: 45px;
+        }
+        @media(max-width:500px){
+            height: 40px;
+            width: 40px;
+        }
+        i.btn{ 
+            font-size: 2rem; 
+            @media(max-width:780px){ font-size: 1.7rem; }
+            @media(max-width:500px){ font-size: 1.55rem; }
         }
     }
 }

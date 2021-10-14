@@ -3,15 +3,25 @@ from flask import Flask, render_template, url_for, request, redirect
 from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from PIL import Image as PILImage
 from base64 import b64decode
 import uuid
+import io
+from PIL import Image
+from facenet_pytorch import MTCNN, InceptionResnetV1
+import torch
+from torchvision import datasets
+from torch.utils.data import DataLoader
+ 
+import numpy as np
+import cv2
+# import matplotlib.pyplot as plt
+import os
 
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'upload_images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///images.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -20,13 +30,6 @@ class User(db.Model):
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
     def __repr__(self):
         return '<User %r>' % self.username
-
-class Image(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    base64 = db.Column(db.String(), nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
-    def __repr__(self):
-        return '<Imagex %r>' % self.id
 
 
 @app.route('/')
@@ -51,7 +54,6 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         user = User.query.filter_by(username=username).first()
-        print(user)
         if user == None:
             return redirect('/login')
         else:
@@ -62,15 +64,12 @@ def login():
 
 @app.route('/test-image', methods=['POST'])
 def checkImage():
-    image = request.form['image']
-    imageUrl = Image(base64=image)
-    # process the base64 to image
-    # try:
-    file = f'image-{uuid.uuid4().hex}.png' 
-    image = PILImage.fromstring('RGB',(image.size), b64decode(image))
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(file)))
-    db.session.add(imageUrl)
-    db.session.commit()
+    message = request.get_json(force=True)
+    encoded = message['image']
+    decoded = b64decode(encoded)
+    image = Image.open(io.BytesIO(decoded))
+    image.save(f'{uuid.uuid4()}.jpeg')
+
     # do the backend processing at this place
     return render_template('index.html')
     # except:

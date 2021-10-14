@@ -45,8 +45,11 @@ capture.addEventListener('click', (e) => {
     e.preventDefault();
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
     if(video.srcObject != '' && video.srcObject != undefined && video.srcObject != null){ 
-        let img_src = canvas.toDataURL('image/jpeg'); 
-        input.setAttribute('value', img_src);
-        form.submit();
+        let img_src = canvas.toDataURL('image/jpeg');
+        let src = img_src.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+        let message = { image: src };
+        $.post('/test-image', JSON.stringify(message));
+        // input.setAttribute('value', JSON.stringify(message));
+        // form.submit();
     }
 });

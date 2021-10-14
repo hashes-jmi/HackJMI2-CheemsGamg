@@ -9,20 +9,18 @@
 {% block main %}
 <main id="main">
     <div class="camera">
-        <form id="postImage" action="/test-image" method="POST">
-            <input id="imageInput" type="text" name="image" style="display: none" value="">
-            <div class="controls">
-                <button type="submit" id="capture"><i class="btn fas fa-camera" onclick="(e) => e.preventDefault()"></i></button>
-                <button onclick="(e) => e.preventDefault()" id="stop"><i class="btn fas fa-video-slash"></i></button>
-            </div>
-        </form>
         <video autoplay="true" id="videoElement"></video>
         <canvas style="display: none;" id="canvas" width="320" height="240"></canvas>
+    </div>
+    <div class="controls">
+        <button type="submit" id="capture"><i class="btn fas fa-camera" onclick=""></i></button>
+        <button onclick="(e) => e.preventDefault()" id="stop"><i class="btn fas fa-video-slash"></i></button>
     </div>
 </main>
 {% endblock %}
 
 
 {% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
 {% endblock %}
