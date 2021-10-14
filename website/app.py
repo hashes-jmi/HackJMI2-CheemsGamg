@@ -1,8 +1,8 @@
 import os
 from flask import Flask, render_template, url_for, request, redirect, jsonify
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+# from datetime import datetime
 from base64 import b64decode
 import uuid
 import io
@@ -59,26 +59,6 @@ def add_to_database(f_path, u_name):
 
 mtcnn = MTCNN(image_size=240, margin=0, min_face_size=20) #initializing mtcnn for face detection
 resnet = InceptionResnetV1(pretrained='vggface2').eval() #initializing resnet for face img to embeding conversion
-
-dataset=datasets.ImageFolder('database') # photos folder path 
-idx_to_class = {i:c for c,i in dataset.class_to_idx.items()} # accessing names of peoples from folder names
-
-def collate_fn(x):
-    return x[0]
-
-loader = DataLoader(dataset, collate_fn=collate_fn)
-
-face_list = [] # list of cropped faces from photos folder
-name_list = [] # list of names corrospoing to cropped photos
-embedding_list = [] # list of embeding matrix after conversion from cropped faces to embedding matrix using resnet
-
-for img, idx in loader:
-    face, prob = mtcnn(img, return_prob=True) 
-    if face is not None and prob>0.90: # if face detected and porbability >         90%
-        emb = resnet(face.unsqueeze(0)) # passing cropped face into resnet      model to get embedding matrix
-        embedding_list.append(emb.detach()) # resulten embedding matrix is stored in a list
-        name_list.append(idx_to_class[idx]) # names are stored in a list
-
 
 
 def face_match(img_path, data_path): # img_path= location of photo, data_path= location of data.pt 
@@ -139,7 +119,7 @@ def login():
 
 @app.route('/test-image', methods=['POST'])
 def checkImage():
-    filename = f'{uuid.uuid4()}.jpeg'
+    filename = f'{uuid.uuid4().hex}.jpeg'
     message = request.get_json(force=True)
     encoded = message['image']
     decoded = b64decode(encoded)
@@ -152,6 +132,7 @@ def checkImage():
     print('user: ', foundUser)
     print('filename outer: ', filename)
     if foundUser == None:
+        # user came via signup
         image.save(filename)
         new_user = User(username=user)
         try:
@@ -166,6 +147,27 @@ def checkImage():
         # add_to_database(filename, user)
     # else save to the images_for_auth directory 
     else:
+        # user came via login
+        dataset=datasets.ImageFolder('database') # photos folder path 
+        idx_to_class = {i:c for c,i in dataset.class_to_idx.items()} # accessing names of peoples from folder names
+
+        def collate_fn(x):
+            return x[0]
+
+        loader = DataLoader(dataset, collate_fn=collate_fn)
+
+        face_list = [] # list of cropped faces from photos folder
+        name_list = [] # list of names corrospoing to cropped photos
+        embedding_list = [] # list of embeding matrix after conversion from cropped faces to embedding matrix using resnet
+
+        for img, idx in loader:
+            face, prob = mtcnn(img, return_prob=True) 
+            if face is not None and prob>0.90: # if face detected and porbability >         90%
+                emb = resnet(face.unsqueeze(0)) # passing cropped face into resnet      model to get embedding matrix
+                embedding_list.append(emb.detach()) # resulten embedding matrix is stored in a list
+                name_list.append(idx_to_class[idx]) # names are stored in a list
+
+
         image.save('./images_for_auth/img.jpeg')
         data = [embedding_list, name_list]
         torch.save(data, 'data.pt') # saving data.pt file
@@ -173,18 +175,13 @@ def checkImage():
         print(result)
         response = {
             'prediction': {
-                'result': result[0] if result[1]<0.84 else 'No Match',
+                'result': result[0] if result[1]<0.86 else 'No Match',
             }
         }
         return jsonify(response)
 
 
 
-        # do the backend processing at this place
-        # return render_template('index.html')
-        # return '<h1>Image reached successfully</h1>'
-        # except:
-        # return '<h2>There was an error in parsing the image. <br>Please try again</h2>'
 
 if __name__ == '__main__':
     app.run(debug=True)
