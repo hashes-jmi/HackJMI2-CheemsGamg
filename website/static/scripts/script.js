@@ -40,6 +40,7 @@ const capture = document.querySelector("#capture .btn");
 const canvas = document.querySelector("#canvas");
 const input = document.getElementById('imageInput');
 const form = document.getElementById('postImage');
+const user = document.getElementById('user');
 
 capture.addEventListener('click', (e) => {
     e.preventDefault();
@@ -47,8 +48,11 @@ capture.addEventListener('click', (e) => {
     if(video.srcObject != '' && video.srcObject != undefined && video.srcObject != null){ 
         let img_src = canvas.toDataURL('image/jpeg');
         let src = img_src.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
-        let message = { image: src };
-        $.post('/test-image', JSON.stringify(message));
+        let message = { image: src, username: user.innerText };
+        $.post('/test-image', JSON.stringify(message), response => {
+            $("#res-prediction").text(response.prediction.result)
+            console.log(response);
+        });
         // input.setAttribute('value', JSON.stringify(message));
         // form.submit();
     }
