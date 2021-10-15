@@ -33,7 +33,7 @@ def face_match(img):
     for name, dist in zip(name_list, dist_list):
         print('Name: '+name+' Distance: '+str(dist))
     #print(name_list[idx_min], min(dist_list))
-    if min(dist_list) <0.84: #0.84 is the min threshold for face recognition
+    if min(dist_list) <0.80: #0.84 is the min threshold for face recognition
         return (name_list[idx_min], min(dist_list))
     else:
         return False

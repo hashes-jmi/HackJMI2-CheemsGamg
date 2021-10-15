@@ -67,11 +67,13 @@ def checkImage():
         new_user = User(username=user)
         try:
             print('got user: ', user)
-            db.session.add(new_user)
-            db.session.commit()
+            if reg_res == 'User was successfully registered':
+                db.session.add(new_user)
+                db.session.commit()
             #add_data(filename,user)
             print('filename inner: ', filename)
             #os.remove(filename)
+            print('Registration Response : ', reg_res)
             response = { 'prediction': { 'result': reg_res } }
         except:
             response = { 'prediction': { 'result': 'There is already a user with the same name, try something different' } }
@@ -81,6 +83,7 @@ def checkImage():
         # user came via login
         log_res = log(image, user)
         if (type(log_res) == str):
+            print('Login Response: ', log_res)
             response = { 'prediction': { 'result': log_res } }
         else:
             response = { 'prediction': { 'result': 'Successfully logged in' } }
